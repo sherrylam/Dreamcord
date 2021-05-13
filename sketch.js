@@ -1,6 +1,6 @@
 /***********************************************************************************
-  MoodyMaze
-  by Scott Kildall
+  Dreamcord
+  by Sherry Lam
 
   Uses the p5.2DAdventure.js class 
   
@@ -54,7 +54,6 @@ const rich = 1;
 const dreamcorps = 2;
 const government = 3;
 const naturalist = 4;
-const consumer = 5;
 
 // room indices - look at adventureManager
 const startScreen = 3;
