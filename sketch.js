@@ -42,16 +42,18 @@ const cl_Government_CutParks = 11;*/
 var angerImage;   // anger emoji
 var maxAnger = 5;
 
+var logoImage;
+
 // character arrays
 var characterImages = [];   // array of character images, keep global for future expansion
 var characters = [];        // array of charactes
 
 // characters
-const goomazon = 0;
-const mayor = 1;
-const bigLabor = 2;
-const nimby = 3;
-const treeHugger = 4;
+const poor = 0;
+const rich = 1;
+const dreamcorps = 2;
+const government = 3;
+const naturalist = 4;
 const consumer = 5;
 
 // room indices - look at adventureManager
@@ -63,6 +65,14 @@ const screen5 = 7;
 const screen6 = 8;
 const screen7 = 9;
 const screen8 = 10;
+const screen9 = 11;
+const screen10 = 12;
+const screen11 = 13;
+const perfectending = 14;
+const anarchyending = 15;
+const asleepending = 16;
+const nodreamsending = 17;
+const govcontrolending = 18;
 
 let headlineFont;
 let bodyFont;
@@ -76,6 +86,7 @@ function preload() {
 
   // load all images
   angerImage = loadImage("assets/anger_emoji.png");
+  logoImage = loadImage("assets/logo.png");
   
   allocateCharacters();
 
@@ -178,15 +189,21 @@ function setupClickables() {
 
 // tint when mouse is over
 clickableButtonHover = function () {
-  this.color = "#AA33AA";
+  this.color = "#FFFFFF40";
   this.noTint = false;
-  this.tint = "#FF0000";
+  //this.tint = "#FF0000";
+  this.strokeWeight = 0;
+  this.textColor = "#FFFFFF";
 }
 
 // color a light gray if off
 clickableButtonOnOutside = function () {
   // backto our gray color
-  this.color = "#AAAAAA";
+  this.color = "#FFFFFFBF";
+  this.strokeWeight = 0;
+  this.textFont = "Roboto Slab";
+  this.textSize = 30;
+  this.textColor = "#000000";
 }
 
 clickableButtonPressed = function() {
@@ -197,67 +214,61 @@ clickableButtonPressed = function() {
 //-- pass the clickable pressed to the adventure manager, which changes the
 //-- state. A more elegant solution would be to use a table for all of these values
 clStart_A = function() {
-    characters[goomazon].addAnger(2);
-    characters[nimby].subAnger(1);
-    characters[bigLabor].addAnger(1);
+    characters[poor].addAnger(2);
+    characters[government].subAnger(1);
+    characters[dreamcorps].addAnger(1);
     adventureManager.clickablePressed(this.name);
 }
 
 clStart_B = function() {
-  characters[mayor].addAnger(1);
-  characters[nimby].subAnger(1);
-  characters[goomazon].subAnger(2);
+  characters[rich].addAnger(1);
+  characters[government].subAnger(1);
+  characters[poor].subAnger(2);
   adventureManager.clickablePressed(this.name);
 }
 
 clDreamCorps_A = function() {
-  characters[nimby].addAnger(1);
-  characters[consumer].addAnger(1);
-  characters[treeHugger].addAnger(1);
-  characters[goomazon].subAnger(1);
+  characters[government].addAnger(1);
+  characters[naturalist].addAnger(1);
+  characters[poor].subAnger(1);
   adventureManager.clickablePressed(this.name);
 }
 
 clGovernment_A = function() {
-  characters[nimby].addAnger(2);
-  characters[consumer].subAnger(1);
-  characters[goomazon].addAnger(1);
-  characters[bigLabor].addAnger(1);
+  characters[government].addAnger(2);
+  characters[poor].addAnger(1);
+  characters[dreamcorps].addAnger(1);
   adventureManager.clickablePressed(this.name);
 }
 
 clIgnoreThem = function() {
-  characters[nimby].addAnger(1);
-  characters[treeHugger].addAnger(1);
-  characters[bigLabor].addAnger(1);
+  characters[government].addAnger(1);
+  characters[naturalist].addAnger(1);
+  characters[dreamcorps].addAnger(1);
   adventureManager.clickablePressed(this.name);
 }
 
 clCutArts = function() {
-  characters[treeHugger].addAnger(2);
-  characters[consumer].addAnger(2);
-  characters[mayor].addAnger(1);
+  characters[naturalist].addAnger(2);
+  characters[rich].addAnger(1);
   adventureManager.clickablePressed(this.name);
 }
 
 clCutTransportation = function() {
-  characters[treeHugger].addAnger(3);
-  characters[mayor].addAnger(1);
-  characters[consumer].addAnger(1);
+  characters[naturalist].addAnger(3);
+  characters[rich].addAnger(1);
   adventureManager.clickablePressed(this.name);
 }
 
 clCutCityWages = function() {
-  characters[mayor].addAnger(2);
-  characters[bigLabor].addAnger(2);
-  characters[consumer].addAnger(1);
+  characters[rich].addAnger(2);
+  characters[dreamcorps].addAnger(2);
   adventureManager.clickablePressed(this.name);
 }
 
 clCutParks = function() {
-  characters[mayor].addAnger(1);
-  characters[treeHugger].addAnger(2);
-  characters[consumer].addAnger(1);
+  characters[rich].addAnger(1);
+  characters[naturalist].addAnger(2);
   adventureManager.clickablePressed(this.name);
 }
 
@@ -268,23 +279,22 @@ clCutParks = function() {
 //-------------- CHARACTERS -------------//
 function allocateCharacters() {
   // load the images first
-  characterImages[goomazon] = loadImage("assets/goomazon.jpg");
-  characterImages[mayor] = loadImage("assets/mayor.jpg");
-  characterImages[bigLabor] = loadImage("assets/bigLabor.jpg");
-  characterImages[nimby] = loadImage("assets/nimby.jpg");
-  characterImages[treeHugger] = loadImage("assets/treeHugger.jpg");
-  characterImages[consumer] = loadImage("assets/consumer.jpg");
+  characterImages[poor] = loadImage("assets/poor.png");
+  characterImages[rich] = loadImage("assets/rich.png");
+  characterImages[dreamcorps] = loadImage("assets/dreamcorps.png");
+  characterImages[government] = loadImage("assets/government.png");
+  characterImages[naturalist] = loadImage("assets/naturalist.png");
 
   for( let i = 0; i < characterImages.length; i++ ) {
     characters[i] = new Character();
-    characters[i].setup( characterImages[i], 50 + (400 * parseInt(i/2)), 120 + (i%2 * 120));
+    //characters[i].setup( characterImages[i], 50 + (400 * parseInt(i/2)), 120 + (i%2 * 120));
+    characters[i].setup( characterImages[i], 50, 225 + (100 * i));
   }
 
   // default anger is zero, set up some anger values
-  characters[bigLabor].addAnger(1);
-  characters[nimby].addAnger(2);
-  characters[treeHugger].addAnger(1);
-  characters[consumer].subAnger(2); // test
+  //characters[dreamcorps].addAnger(1);
+  //characters[government].addAnger(2);
+  //characters[naturalist].addAnger(1);
 }
 
 class Character {
@@ -305,13 +315,14 @@ class Character {
     if( this.image ) {
       push();
       // draw the character icon
-      imageMode(CENTER);
+      //imageMode(CENTER);
+      this.image.resize(0, 60);
       image( this.image, this.x, this.y );
 
       // draw anger emojis
-      for( let i = 0; i < this.anger; i++ ) {
+      /*for( let i = 0; i < this.anger; i++ ) {
         image(angerImage, this.x + 70 + (i*40), this.y +10 );
-      }
+      }*/
 
       pop();
     }
@@ -350,14 +361,23 @@ function loadAllText() {
 // copy the array reference from adventure manager so that code is cleajer
   scenarioRooms = adventureManager.states;
 
-  scenarioRooms[startScreen].setText("Who Pays for it?", "The underground tunnels cost money to maintain. Goomazon threatens to leave the city if they have to pay for all the maintenance work. Who pays for it?");
-  scenarioRooms[dreamCorpsScreen].setText("Do we lure them back?", "Goomazon moves their headquarters to our rival city across the river. They layoff local workers. How should we respond?");
-  scenarioRooms[governmentScreen].setText("What do we cut?", "The city budget is getting tanked because of the cost of the tunels. Which programs should we cut?");
-  scenarioRooms[screen4].setText("How do we help the economy?", "The wealthy leave the city in droves. Restaurants start closing and our tax base is depleted. What do we do?");
-  scenarioRooms[screen5].setText("It's bad, what do we do?", "The rival company is even worse than Goomazon. In addition to being anti-union, they force everyone to wear silly uniforms, sing happy children's songs and sign the most restrictive NDAs ever.");
-  scenarioRooms[screen6].setText("Oh-no! Now what to do?", "Goomazon expands its operations. It is now both in your city and the rival city. It's driven out all the local businesses.");
-  scenarioRooms[screen7].setText("How can we fix this?", "The city has cut the budget to some of its essential services. It's been a cascading effect. Without arts and adequate transportation, everyone has become depressed. THE END.");
-  scenarioRooms[screen8].setText("How do we respond?", "There are massive worker's strikes. The city is shut down. Big labor is angry and riling people up. Thousands of protesters are in the streets.");
+  scenarioRooms[startScreen].setText("Who gets ownership?", "Scientists need the help of companies so that Dreamcord can successfully be advertised and distributed to the consumers. Should they... \n\nA. Sell to the Private Dream corps. They will develop the technology often. \nB. Sell to the Government. They want to take advantage of this new technology.");
+  scenarioRooms[dreamCorpsScreen].setText("Equal Dream Quality?", "The poor oneiroophiles are complaining that they don’t have high quality dreams like the richer oneirophiles. Should the Corps...\n\nA. Make dreams have high quality regardless of economic status\nB. Nah, reject equal dream quality.");
+  scenarioRooms[governmentScreen].setText("Government Control?", "The government now has complete control. Should they…\n\nA. Force the Private Dream corps to sell all their user data\nB. Pass laws to force everyone to record dreams");
+  scenarioRooms[screen4].setText("New Device?", "The Dream Corps came out with a new device, Dreampod, so that you can record dreams that include anybody in your DreamPod. Do you...\n\nA. Allow the distribution\nB. Nah, recording your own dream is enough");
+  scenarioRooms[screen5].setText("Angry...", "Anger is rising in the poor oneirophiles. They are ready to revolt anytime now. Naturalists already have been lobbying against Dreamcord. Do you...\n\nA. Continue to reject whatever the poor oneirophiles wants.\nB. Finally listen to what the Naturalists want.");
+  scenarioRooms[screen6].setText("Data Access", "Since the Government now has access to everyone's data, they want to do multiple things. Should they.../nA. Use the data to predict any potential thoughts and control the population\nB. Force everyone to record all dreams");
+  scenarioRooms[screen7].setText("What do?", "Everybody is concerned on the privacy of their recorded dreams. The Government reassures that they will not do anything with these dreams. Will the...\n\nA. Oneirophiles start a market on drugs that will induce sleep or stay awake\nB. Government start to regulate dreams.");
+  scenarioRooms[screen8].setText("Dreamcord together", "Oneirophiles love the addition . They are able to record dreams together!\n\nA. They love it so much that they became addicted to sleeping pills.\nB. They use it in a healthy way.");
+  scenarioRooms[screen9].setText("Concerned Naturalists","Naturalists are protesting against Dreamcord because they think it is unnatural to record something that naturally goes away. Do you...\n\nA. Follow what they want\nB. Nah Naturalists talk wack. Continue recording dreams");
+  scenarioRooms[screen10].setText("Protection?","Rich Oneirophiles want to use their abundant amount of money to protect themselves. Should they...\n\nA. Give money to Government to protect their privacy.\nB. Start a market of sleeping drugs to make everyone else addicted to dreaming.");
+  scenarioRooms[screen11].setText("Drugs?","With the help of big money from the Rich Oneirophiles, the government lost control of the abundant use of drugs. Will people get addicted to...\n\nA. Sleep. Dreaming is the best.\nB. Staying Awake. Everybody is paranoid that the Government will use their dreams against them.");
+  scenarioRooms[perfectending].setText("No dreaming problems","We have found ways to equally give quality dreams. Everyone is happy and can actually use these dreams to fuel their creativity.");
+  scenarioRooms[anarchyending].setText("Anarchy","Lower class oneirophile are revolting because it is unfair to charge people for high quality dreams. The government wants to stop the protests and attacks. The high class oneirophiles want to preserve elitism of being the ones that can afford high quality dreams.");
+  scenarioRooms[asleepending].setText("Everyone is asleep","Everyone is asleep in their dreamworld and in the dreampods that the Private Dream Corps made. They clearly got huge earnings.");
+  scenarioRooms[nodreamsending].setText("Dreamcord is Eradicated","Naturalists are super happy that dreams are not recorded and there is privacy in the consciousness.");
+  scenarioRooms[govcontrolending].setText("Total Government Control","The government decided to use the data of everyone’s recorded dreams to figure out the potential positive or negative impacts of people’s consciousness. ");
+
 }
 
 //-------------- SUBCLASSES / YOUR DRAW CODE CAN GO HERE ---------------//
@@ -378,8 +398,8 @@ class ScenarioRoom extends PNGRoom {
   setText( titleText, bodyText ) {
     this.titleText = titleText;
     this.bodyText = bodyText;
-    this.drawY = 360;
-    this.drawX = 52;
+    this.drawY = 225;
+    this.drawX = 225;
   }
 
   // call the PNGRoom superclass's draw function to draw the background image
@@ -390,28 +410,152 @@ class ScenarioRoom extends PNGRoom {
       
       push();
 
+      // title box
+      fill(0,0,0,64);
+      noStroke();
+      rect(200, 50, 750, 100, 10);
+
       // title text
       fill(255);
-      textAlign(LEFT);
-      textFont(headlineFont);
-      textSize(36);
+      textAlign(CENTER);
+      textFont('Roboto Slab');
+      textSize(60);
 
-      text("How do we feel?", this.drawX , 60);
-
-      // title text
-      textSize(30);
-
-      text(this.titleText, this.drawX , this.drawY);
-     
-      // Draw text in a box
-      //text(this.titleText, width/6, height/6, this.textBoxWidth, this.textBoxHeight );
+      text(this.titleText, 575 , 125);
     
-      textFont(bodyFont);
-      textSize(24);
+      // body box
+      fill(0,0,0,64);
+      noStroke();
+      rect(200, 200, 750, 550, 10);
 
-      text(this.bodyText, this.drawX , this.drawY + 60, width - (this.drawX*2),height - (this.drawY+100) );
+      // body text
+      fill(255);
+      textAlign(LEFT);
+      textFont('Roboto Slab');
+      textSize(30);
+      textLeading(40);
+
+      // Draw text in a box
+      text(this.bodyText, this.drawX , this.drawY, 700, 400 );
+
+      //logo
+      image(logoImage, 45, 45);
+      logoImage.resize(105,0);
       
       pop();
     }
 }
 
+class InstructionRoom extends PNGRoom {
+  // Constructor gets calle with the new keyword, when upon constructor for the adventure manager in preload()
+  constructor() {
+    super();    // call super-class constructor to initialize variables in PNGRoom
+  }
+
+  // call the PNGRoom superclass's draw function to draw the background image
+  // and draw our instructions on top of this
+    draw() {
+      // this calls PNGRoom.draw()
+      super.draw();
+      
+      push();
+
+      // title box
+      fill(0,0,0,64);
+      noStroke();
+      rect(50, 50, 900, 100, 10);
+
+      // title text
+      fill(255);
+      textAlign(CENTER);
+      textFont('Roboto Slab');
+      textSize(60);
+
+      text("Instructions", 500 , 125);
+    
+      // body box
+      fill(0,0,0,64);
+      noStroke();
+      rect(50, 200, 900, 550, 10);
+
+      // body text
+      fill(255);
+      textAlign(LEFT);
+      textFont('Roboto Slab');
+      textSize(30);
+      textLeading(40);
+
+      // Draw text in a box
+      text("The year is 20XX. Scientists have discovered a way to record your own dreams! The device is a head band and should be put on before you go to sleep. Your recorded dreams are then automatically uploaded to the cloud where you will be able to access the recordings anywhere on your personal device.\nYou get to control the development of this technology based on your choices. Be careful to not anger certain groups too much!", 75 , 225, 850, 400 );
+      
+      pop();
+    }
+}
+
+class CharactersRoom extends PNGRoom {
+  // Constructor gets calle with the new keyword, when upon constructor for the adventure manager in preload()
+  constructor() {
+    super();    // call super-class constructor to initialize variables in PNGRoom
+  }
+
+  // call the PNGRoom superclass's draw function to draw the background image
+  // and draw our instructions on top of this
+    draw() {
+      // this calls PNGRoom.draw()
+      super.draw();
+      
+      push();
+
+      // title box
+      fill(0,0,0,64);
+      noStroke();
+      rect(50, 50, 900, 100, 10);
+
+      // title text
+      fill(255);
+      textAlign(CENTER);
+      textFont('Roboto Slab');
+      textSize(60);
+
+      text("Characters", 500 , 125);
+    
+      // body box
+      fill(0,0,0,64);
+      noStroke();
+      for (var i = 0; i < 2; i++) {
+        rect(212 + (325*i), 200, 250, 250, 10);
+      }
+      for (var i = 0; i < 3; i++) {
+        rect(50 + (325*i), 500, 250, 250, 10);
+      }
+
+      // body text
+      fill(255);
+      textAlign(LEFT);
+      textFont('Roboto Slab');
+      textSize(20);
+      textLeading(26);
+
+      // Draw text in a box
+      text("Lower Class Oneirophile:\nPoor dream lovers. They make do best on what they have to enjoy their recorded dreams.", 225 , 300, 250, 190 );
+      text("Higher Class Oneirophile:\nRich dream lovers. They have the money to do whatever they want for their dreams.", 550 , 300, 250, 190 );
+      text("Private Dream Corps:\nThese corporations can make a lot of money on this amazing tech even if there are angry people.", 62 , 600, 250, 190 );
+      text("Government:\nThey love this new technology and want to find ways to *totally* make a positive change for everyone.", 387 , 600, 250, 190 );
+      text("Naturalist:\nThey want to go back to the way dreams were dreamt. Natural and often forgotten.", 712 , 600, 250, 190 );
+
+      //character 1
+      imageMode(CENTER);
+      characterImages[poor].resize(75,0);
+      image(characterImages[poor], 337, 250);
+      characterImages[rich].resize(75,0);
+      image(characterImages[rich], 663, 250);
+      characterImages[dreamcorps].resize(75,0);
+      image(characterImages[dreamcorps], 175, 550);
+      characterImages[government].resize(75,0);
+      image(characterImages[government], 500, 550);
+      characterImages[naturalist].resize(75,0);
+      image(characterImages[naturalist], 825, 550);
+
+      pop();
+    }
+}

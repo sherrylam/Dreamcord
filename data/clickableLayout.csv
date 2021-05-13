@@ -1,8 +1,24 @@
 ID,Name,State,PNGFilename,Text,x,y,visible
-0,StartScenario,Characters,,Start Scenario,100,650,yes
-1,Start_A,Start,,A,100,600,yes
-2,Start_B,Start,,B,400,600,yes
-3,DreamCorps_A,DreamCorps,,A,100,600,yes
-4,DreamCorps_B,DreamCorps,,B,400,600,yes
-5,Government_A,Government,,A,100,600,yes
-6,Government_B,Government,,B,400,600,yes
+0,Start,Characters,,Start Scenario,400,450,yes
+1,Start_A,Start,,A,325,675,yes
+2,Start_B,Start,,B,625,675,yes
+3,DreamCorps_A,DreamCorps,,A,325,675,yes
+4,DreamCorps_B,DreamCorps,,B,625,675,yes
+5,Government_A,Government,,A,325,675,yes
+6,Government_B,Government,,B,625,675,yes
+7,State4_A,State4,,A,325,675,yes
+8,State4_B,State4,,B,625,675,yes
+9,State5_A,State5,,A,325,675,yes
+10,State5_B,State5,,B,625,675,yes
+11,State6_A,State6,,A,325,675,yes
+12,State6_B,State6,,B,625,675,yes
+13,State7_A,State7,,A,325,675,yes
+14,State7_B,State7,,B,625,675,yes
+15,State8_A,State8,,A,325,675,yes
+16,State8_B,State8,,B,625,675,yes
+17,State9_A,State9,,A,325,675,yes
+18,State9_B,State9,,B,625,675,yes
+19,State10_A,State10,,A,325,675,yes
+20,State10_B,State10,,B,625,675,yes
+21,State11_A,State11,,A,325,675,yes
+22,State11_B,State11,,B,625,675,yes

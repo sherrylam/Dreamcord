@@ -61,7 +61,7 @@ function Clickable() {
 	this.resizeImageFlag = false;	// flag for setting width and height to image after setImage since it is asynchronous
 	this.x = 0;			//X position of the clickable
 	this.y = 0;			//Y position of the clickable
-	this.width = 100;		//Width of the clickable
+	this.width = 200;		//Width of the clickable
 	this.height = 50;		//Height of the clickable
 	this.color = "#FFFFFF";		//Background color of the clickable
 	this.cornerRadius = 10;		//Corner radius of the clickable
