@@ -22,3 +22,9 @@ ID,Name,State,PNGFilename,Text,x,y,visible
 20,State10_B,State10,,B,625,675,yes
 21,State11_A,State11,,A,325,675,yes
 22,State11_B,State11,,B,625,675,yes
+23,Continue,Perfect,,Continue,475,675,yes
+24,Continue,Anarchy,,Continue,475,675,yes
+25,Continue,DreamPod,,Continue,475,675,yes
+26,Continue,NoDreams,,Continue,475,675,yes
+27,Continue,GovControl,,Continue,475,675,yes
+28,Restart,Final,,Restart,400,675,yes

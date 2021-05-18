@@ -18,3 +18,4 @@ ID,StateName,ClassName,PNGFilename,CollisionFilename
 16,DreamPod,ScenarioRoom,assets/background.png,
 17,NoDreams,ScenarioRoom,assets/background.png,
 18,GovControl,ScenarioRoom,assets/background.png,
+19,Final,PNGRoom,assets/background.png,

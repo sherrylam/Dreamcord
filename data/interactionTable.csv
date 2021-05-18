@@ -24,3 +24,8 @@ State10,,,,State10_A,,DreamPod
 State10,,,,State10_B,,State11
 State11,,,,State11_A,,DreamPod
 State11,,,,State11_B,,NoDreams
+Anarchy,,,,Continue,,Final
+DreamPod,,,,Continue,,Final
+NoDreams,,,,Continue,,Final
+GovControl,,,,Continue,,Final
+Final,,,,Restart,,Start

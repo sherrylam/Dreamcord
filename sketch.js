@@ -31,17 +31,29 @@ const cl_DreamCorps_A = 3;
 const cl_DreamCorps_B = 4;
 const cl_Government_A = 5;
 const cl_Government_B = 6;
-/*const cl_DreamCorps_IgnoreThem = 7;
-const cl_Government_CutTheArts = 8;
-const cl_Government_CutTransportation = 9;
-const cl_Government_CutCityWages = 10;
-const cl_Government_CutParks = 11;*/
-
+const cl_4_A = 7;
+const cl_4_B = 8;
+const cl_5_A = 9;
+const cl_5_B = 10;
+const cl_6_A = 11;
+const cl_6_B = 12;
+const cl_7_A = 13;
+const cl_7_B = 14;
+const cl_8_A = 15;
+const cl_8_B = 16;
+const cl_9_A = 17;
+const cl_9_B = 18;
+const cl_10_A = 19;
+const cl_10_B = 20;
+const cl_11_A = 21;
+const cl_11_B = 22;
 
 // anger emojis
 var angerImage;   // anger emoji
 var maxAnger = 5;
 
+var faces = [];
+var e = 1;
 var logoImage;
 
 // character arrays
@@ -85,6 +97,9 @@ function preload() {
 
   // load all images
   angerImage = loadImage("assets/anger_emoji.png");
+    faces[0] = loadImage('assets/angry.png');
+    faces[1] = loadImage('assets/neutral.png');
+    faces[2] = loadImage('assets/happy.png');
   logoImage = loadImage("assets/logo.png");
   
   allocateCharacters();
@@ -122,17 +137,31 @@ function draw() {
   // draws background rooms and handles movement from one to another
   adventureManager.draw();
 
- // drawCharacters();
-
   // don't draw them on first few screens
   if( adventureManager.getStateName() === "Splash" ||
       adventureManager.getStateName() === "Instructions" ||
-      adventureManager.getStateName() === "Characters" ) {
+      adventureManager.getStateName() === "Characters" ||
+      adventureManager.getStateName() === "Final") {
     ;
   }
   else {
     drawCharacters();
   }
+    
+    if( adventureManager.getStateName() === "Final") {
+        fill(0,0,0,64);
+        noStroke();
+        rect(75, 350, 900, 100, 10);
+        
+        fill(255);
+        textAlign(CENTER, CENTER);
+        textFont('Roboto Slab');
+        textSize(60);
+        text("Or was this all a dream??", 500, 400 );
+    }
+    else {
+        ;
+    }
   
   // draw the p5.clickables, in front of the mazes but behind the sprites 
   clickablesManager.draw();
@@ -176,21 +205,35 @@ function setupClickables() {
   clickables[1].onPress = clStart_A;
   clickables[2].onPress = clStart_B;
   clickables[3].onPress = clDreamCorps_A;
-  clickables[4].onPress = clDreamCorps_A;
+  clickables[4].onPress = clDreamCorps_B;
   clickables[5].onPress = clGovernment_A;
-  clickables[6].onPress = clGovernment_A;
-  /*clickables[7].onPress = clIgnoreThem;
-  clickables[8].onPress = clCutArts;
-  clickables[9].onPress = clCutTransportation;
-  clickables[10].onPress = clCutCityWages;
-  clickables[11].onPress = clCutParks;*/
+  clickables[6].onPress = clGovernment_B;
+  clickables[7].onPress = cl4_A;
+  clickables[8].onPress = cl4_B;
+  clickables[9].onPress = cl5_A;
+  clickables[10].onPress = cl5_B;
+  clickables[11].onPress = cl6_A;
+  clickables[12].onPress = cl6_B;
+    clickables[13].onPress = cl7_A;
+    clickables[14].onPress = cl7_B;
+    clickables[15].onPress = cl8_A;
+    clickables[16].onPress = cl8_B;
+    clickables[17].onPress = cl9_A;
+    clickables[18].onPress = cl9_B;
+    clickables[19].onPress = cl10_A;
+    clickables[20].onPress = cl10_B;
+    clickables[21].onPress = cl11_A;
+    clickables[22].onPress = cl11_B;
+    for( let i = 23; i < 28; i++) {
+        clickables[i].onPress = clickableButtonPressed;
+    }
+    clickables[28].onPress = clReset;
 }
 
 // tint when mouse is over
 clickableButtonHover = function () {
   this.color = "#FFFFFF40";
   this.noTint = false;
-  //this.tint = "#FF0000";
   this.strokeWeight = 0;
   this.textColor = "#FFFFFF";
 }
@@ -213,67 +256,166 @@ clickableButtonPressed = function() {
 //-- pass the clickable pressed to the adventure manager, which changes the
 //-- state. A more elegant solution would be to use a table for all of these values
 clStart_A = function() {
-    characters[poor].addAnger(2);
-    characters[government].subAnger(1);
-    characters[dreamcorps].addAnger(1);
+    characters[dreamcorps].changeEmotion(2);
     adventureManager.clickablePressed(this.name);
 }
 
 clStart_B = function() {
-  characters[rich].addAnger(1);
-  characters[government].subAnger(1);
-  characters[poor].subAnger(2);
+  characters[government].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
 clDreamCorps_A = function() {
-  characters[government].addAnger(1);
-  characters[naturalist].addAnger(1);
-  characters[poor].subAnger(1);
+  characters[poor].changeEmotion(2);
+  characters[rich].changeEmotion(0);
+  adventureManager.clickablePressed(this.name);
+}
+
+clDreamCorps_B = function() {
+  characters[poor].changeEmotion(0);
+  characters[rich].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
 clGovernment_A = function() {
-  characters[government].addAnger(2);
-  characters[poor].addAnger(1);
-  characters[dreamcorps].addAnger(1);
+  characters[poor].changeEmotion(0);
+  characters[rich].changeEmotion(0);
+  characters[naturalist].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
-clIgnoreThem = function() {
-  characters[government].addAnger(1);
-  characters[naturalist].addAnger(1);
-  characters[dreamcorps].addAnger(1);
+clGovernment_B = function() {
+  characters[naturalist].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
-clCutArts = function() {
-  characters[naturalist].addAnger(2);
-  characters[rich].addAnger(1);
+cl4_A = function() {
+  characters[poor].changeEmotion(2);
+  characters[rich].changeEmotion(2);
+  characters[dreamcorps].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
-clCutTransportation = function() {
-  characters[naturalist].addAnger(3);
-  characters[rich].addAnger(1);
+cl4_B = function() {
+  characters[naturalist].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
-clCutCityWages = function() {
-  characters[rich].addAnger(2);
-  characters[dreamcorps].addAnger(2);
+cl5_A = function() {
+  characters[naturalist].changeEmotion(1);
+    characters[poor].changeEmotion(0);
+    characters[rich].changeEmotion(1);
   adventureManager.clickablePressed(this.name);
 }
 
-clCutParks = function() {
-  characters[rich].addAnger(1);
-  characters[naturalist].addAnger(2);
+cl5_B = function() {
+  characters[naturalist].changeEmotion(2);
+    characters[rich].changeEmotion(0);
+    characters[poor].changeEmotion(0);
+    characters[dreamcorps].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
+cl6_A = function() {
+  characters[dreamcorps].changeEmotion(0);
+  adventureManager.clickablePressed(this.name);
+}
 
+cl6_B = function() {
+  characters[poor].changeEmotion(1);
+    characters[naturalist].changeEmotion(0);
+    characters[rich].changeEmotion(1);
+    characters[dreamcorps].changeEmotion(2);
+  adventureManager.clickablePressed(this.name);
+}
 
+cl7_A = function() {
+  characters[naturalist].changeEmotion(1);
+    characters[rich].changeEmotion(2);
+    characters[poor].changeEmotion(2);
+    characters[dreamcorps].changeEmotion(2);
+    characters[government].changeEmotion(0);
+  adventureManager.clickablePressed(this.name);
+}
 
+cl7_B = function() {
+  characters[naturalist].changeEmotion(0);
+    characters[rich].changeEmotion(0);
+    characters[poor].changeEmotion(0);
+    characters[dreamcorps].changeEmotion(1);
+    characters[government].changeEmotion(2);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl8_A = function() {
+  characters[naturalist].changeEmotion(0);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl8_B = function() {
+  adventureManager.clickablePressed(this.name);
+}
+
+cl9_A = function() {
+  characters[naturalist].changeEmotion(2);
+    characters[rich].changeEmotion(0);
+    characters[poor].changeEmotion(0);
+    characters[dreamcorps].changeEmotion(0);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl9_B = function() {
+  characters[naturalist].changeEmotion(0);
+    characters[rich].changeEmotion(2);
+    characters[poor].changeEmotion(2);
+    characters[dreamcorps].changeEmotion(2);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl10_A = function() {
+  characters[naturalist].changeEmotion(0);
+    characters[rich].changeEmotion(2);
+    characters[poor].changeEmotion(0);
+    characters[dreamcorps].changeEmotion(1);
+    characters[government].changeEmotion(2);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl10_B = function() {
+  characters[naturalist].changeEmotion(0);
+    characters[rich].changeEmotion(2);
+    characters[poor].changeEmotion(1);
+    characters[dreamcorps].changeEmotion(1);
+    characters[government].changeEmotion(2);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl11_A = function() {
+  characters[naturalist].changeEmotion(0);
+    characters[rich].changeEmotion(2);
+    characters[poor].changeEmotion(2);
+    characters[dreamcorps].changeEmotion(2);
+    characters[government].changeEmotion(0);
+  adventureManager.clickablePressed(this.name);
+}
+
+cl11_B = function() {
+  characters[naturalist].changeEmotion(2);
+    characters[rich].changeEmotion(1);
+    characters[poor].changeEmotion(1);
+    characters[dreamcorps].changeEmotion(0);
+    characters[government].changeEmotion(1);
+  adventureManager.clickablePressed(this.name);
+}
+
+clReset = function() {
+    characters[poor].changeEmotion(1);
+    characters[rich].changeEmotion(1);
+    characters[dreamcorps].changeEmotion(1);
+    characters[government].changeEmotion(1);
+    characters[naturalist].changeEmotion(1);
+    adventureManager.clickablePressed(this.name);
+}
 
 //-------------- CHARACTERS -------------//
 function allocateCharacters() {
@@ -291,9 +433,12 @@ function allocateCharacters() {
   }
 
   // default anger is zero, set up some anger values
-  //characters[dreamcorps].addAnger(1);
-  //characters[government].addAnger(2);
-  //characters[naturalist].addAnger(1);
+    characters[poor].changeEmotion(1);
+    characters[rich].changeEmotion(1);
+    characters[dreamcorps].changeEmotion(1);
+    characters[government].changeEmotion(1);
+    characters[naturalist].changeEmotion(1);
+    
 }
 
 class Character {
@@ -318,35 +463,16 @@ class Character {
       this.image.resize(0, 60);
       image( this.image, this.x, this.y );
 
-      // draw anger emojis
-      /*for( let i = 0; i < this.anger; i++ ) {
-        image(angerImage, this.x + 70 + (i*40), this.y +10 );
-      }*/
+      // draw emojis
+        image(faces[this.anger], this.x + 70, this.y +10 );
 
       pop();
     }
   }
-
-  getAnger() {
-    return this.anger;
-  }
-
-  // add, check for max overflow
-  addAnger(amt) {
-    this.anger += amt;
-    if( this.anger > maxAnger ) {
-      this.anger = maxAnger;
+    
+    changeEmotion(x) {
+        this.anger = x;
     }
-
-  }
-
-  // sub, check for below zero
-  subAnger(amt) {
-    this.anger -= amt;
-    if( this.anger < 0 ) {
-      this.anger = 0;
-    }
-  }
 }
 
 //-------------- ROOMS --------------//
@@ -361,7 +487,7 @@ function loadAllText() {
   scenarioRooms = adventureManager.states;
 
   scenarioRooms[startScreen].setText("Who gets ownership?", "Scientists need the help of companies so that Dreamcord can successfully be advertised and distributed to the consumers. Should they... \n\nA. Sell to the Private Dream corps. They will develop the technology often. \nB. Sell to the Government. They want to take advantage of this new technology.");
-  scenarioRooms[dreamCorpsScreen].setText("Equal Dream Quality?", "The poor oneiroophiles are complaining that they don’t have high quality dreams like the richer oneirophiles. Should the Corps...\n\nA. Make dreams have high quality regardless of economic status\nB. Nah, reject equal dream quality.");
+  scenarioRooms[dreamCorpsScreen].setText("Equal Dream Quality?", "The poor oneirophiles are complaining that they don’t have high quality dreams like the richer oneirophiles. Should the Corps...\n\nA. Make dreams have high quality regardless of economic status\nB. Nah, reject equal dream quality.");
   scenarioRooms[governmentScreen].setText("Government Control?", "The government now has complete control. Should they…\n\nA. Force the Private Dream corps to sell all their user data\nB. Pass laws to force everyone to record dreams");
   scenarioRooms[screen4].setText("New Device?", "The Dream Corps came out with a new device, Dreampod, so that you can record dreams that include anybody in your DreamPod. Do you...\n\nA. Allow the distribution\nB. Nah, recording your own dream is enough");
   scenarioRooms[screen5].setText("Angry...", "Anger is rising in the poor oneirophiles. They are ready to revolt anytime now. Naturalists already have been lobbying against Dreamcord. Do you...\n\nA. Continue to reject whatever the poor oneirophiles wants.\nB. Finally listen to what the Naturalists want.");
