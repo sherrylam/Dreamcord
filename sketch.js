@@ -2,13 +2,13 @@
   Dreamcord
   by Sherry Lam
 
-  Uses the p5.2DAdventure.js class 
+  Uses the p5.2DAdventure.js class. 
+  This is an adventure game all about scenarios based on a speculative technology.
+  http://xarts.usfca.edu/~slam10/Dreamcord/
   
 ------------------------------------------------------------------------------------
 	To use:
-	Add this line to the index.html
-
-  <script src="p5.2DAdventure.js"></script>
+	only need to click the buttons!
 ***********************************************************************************/
 
 // adventure manager global  
@@ -148,20 +148,20 @@ function draw() {
     drawCharacters();
   }
     
-    if( adventureManager.getStateName() === "Final") {
-        fill(0,0,0,64);
-        noStroke();
-        rect(75, 350, 900, 100, 10);
-        
-        fill(255);
-        textAlign(CENTER, CENTER);
-        textFont('Roboto Slab');
-        textSize(60);
-        text("Or was this all a dream??", 500, 400 );
-    }
-    else {
-        ;
-    }
+  if( adventureManager.getStateName() === "Final") {
+    fill(0,0,0,64);
+    noStroke();
+    rect(75, 350, 900, 100, 10);
+    
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textFont('Roboto Slab');
+    textSize(60);
+    text("Or was this all a dream??", 500, 400 );
+  }
+  else {
+      ;
+  }
   
   // draw the p5.clickables, in front of the mazes but behind the sprites 
   clickablesManager.draw();
@@ -214,20 +214,20 @@ function setupClickables() {
   clickables[10].onPress = cl5_B;
   clickables[11].onPress = cl6_A;
   clickables[12].onPress = cl6_B;
-    clickables[13].onPress = cl7_A;
-    clickables[14].onPress = cl7_B;
-    clickables[15].onPress = cl8_A;
-    clickables[16].onPress = cl8_B;
-    clickables[17].onPress = cl9_A;
-    clickables[18].onPress = cl9_B;
-    clickables[19].onPress = cl10_A;
-    clickables[20].onPress = cl10_B;
-    clickables[21].onPress = cl11_A;
-    clickables[22].onPress = cl11_B;
-    for( let i = 23; i < 28; i++) {
-        clickables[i].onPress = clickableButtonPressed;
-    }
-    clickables[28].onPress = clReset;
+  clickables[13].onPress = cl7_A;
+  clickables[14].onPress = cl7_B;
+  clickables[15].onPress = cl8_A;
+  clickables[16].onPress = cl8_B;
+  clickables[17].onPress = cl9_A;
+  clickables[18].onPress = cl9_B;
+  clickables[19].onPress = cl10_A;
+  clickables[20].onPress = cl10_B;
+  clickables[21].onPress = cl11_A;
+  clickables[22].onPress = cl11_B;
+  for( let i = 23; i < 28; i++) {
+    clickables[i].onPress = clickableButtonPressed;
+  }
+  clickables[28].onPress = clReset;
 }
 
 // tint when mouse is over
@@ -256,8 +256,8 @@ clickableButtonPressed = function() {
 //-- pass the clickable pressed to the adventure manager, which changes the
 //-- state. A more elegant solution would be to use a table for all of these values
 clStart_A = function() {
-    characters[dreamcorps].changeEmotion(2);
-    adventureManager.clickablePressed(this.name);
+  characters[dreamcorps].changeEmotion(2);
+  adventureManager.clickablePressed(this.name);
 }
 
 clStart_B = function() {
@@ -303,16 +303,16 @@ cl4_B = function() {
 
 cl5_A = function() {
   characters[naturalist].changeEmotion(1);
-    characters[poor].changeEmotion(0);
-    characters[rich].changeEmotion(1);
+  characters[poor].changeEmotion(0);
+  characters[rich].changeEmotion(1);
   adventureManager.clickablePressed(this.name);
 }
 
 cl5_B = function() {
   characters[naturalist].changeEmotion(2);
-    characters[rich].changeEmotion(0);
-    characters[poor].changeEmotion(0);
-    characters[dreamcorps].changeEmotion(0);
+  characters[rich].changeEmotion(0);
+  characters[poor].changeEmotion(0);
+  characters[dreamcorps].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
@@ -323,27 +323,27 @@ cl6_A = function() {
 
 cl6_B = function() {
   characters[poor].changeEmotion(1);
-    characters[naturalist].changeEmotion(0);
-    characters[rich].changeEmotion(1);
-    characters[dreamcorps].changeEmotion(2);
+  characters[naturalist].changeEmotion(0);
+  characters[rich].changeEmotion(1);
+  characters[dreamcorps].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
 cl7_A = function() {
   characters[naturalist].changeEmotion(1);
-    characters[rich].changeEmotion(2);
-    characters[poor].changeEmotion(2);
-    characters[dreamcorps].changeEmotion(2);
-    characters[government].changeEmotion(0);
+  characters[rich].changeEmotion(2);
+  characters[poor].changeEmotion(2);
+  characters[dreamcorps].changeEmotion(2);
+  characters[government].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
 cl7_B = function() {
   characters[naturalist].changeEmotion(0);
-    characters[rich].changeEmotion(0);
-    characters[poor].changeEmotion(0);
-    characters[dreamcorps].changeEmotion(1);
-    characters[government].changeEmotion(2);
+  characters[rich].changeEmotion(0);
+  characters[poor].changeEmotion(0);
+  characters[dreamcorps].changeEmotion(1);
+  characters[government].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
@@ -358,63 +358,63 @@ cl8_B = function() {
 
 cl9_A = function() {
   characters[naturalist].changeEmotion(2);
-    characters[rich].changeEmotion(0);
-    characters[poor].changeEmotion(0);
-    characters[dreamcorps].changeEmotion(0);
+  characters[rich].changeEmotion(0);
+  characters[poor].changeEmotion(0);
+  characters[dreamcorps].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
 cl9_B = function() {
   characters[naturalist].changeEmotion(0);
-    characters[rich].changeEmotion(2);
-    characters[poor].changeEmotion(2);
-    characters[dreamcorps].changeEmotion(2);
+  characters[rich].changeEmotion(2);
+  characters[poor].changeEmotion(2);
+  characters[dreamcorps].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
 cl10_A = function() {
   characters[naturalist].changeEmotion(0);
-    characters[rich].changeEmotion(2);
-    characters[poor].changeEmotion(0);
-    characters[dreamcorps].changeEmotion(1);
-    characters[government].changeEmotion(2);
+  characters[rich].changeEmotion(2);
+  characters[poor].changeEmotion(0);
+  characters[dreamcorps].changeEmotion(1);
+  characters[government].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
 cl10_B = function() {
   characters[naturalist].changeEmotion(0);
-    characters[rich].changeEmotion(2);
-    characters[poor].changeEmotion(1);
-    characters[dreamcorps].changeEmotion(1);
-    characters[government].changeEmotion(2);
+  characters[rich].changeEmotion(2);
+  characters[poor].changeEmotion(1);
+  characters[dreamcorps].changeEmotion(1);
+  characters[government].changeEmotion(2);
   adventureManager.clickablePressed(this.name);
 }
 
 cl11_A = function() {
   characters[naturalist].changeEmotion(0);
-    characters[rich].changeEmotion(2);
-    characters[poor].changeEmotion(2);
-    characters[dreamcorps].changeEmotion(2);
-    characters[government].changeEmotion(0);
+  characters[rich].changeEmotion(2);
+  characters[poor].changeEmotion(2);
+  characters[dreamcorps].changeEmotion(2);
+  characters[government].changeEmotion(0);
   adventureManager.clickablePressed(this.name);
 }
 
 cl11_B = function() {
   characters[naturalist].changeEmotion(2);
-    characters[rich].changeEmotion(1);
-    characters[poor].changeEmotion(1);
-    characters[dreamcorps].changeEmotion(0);
-    characters[government].changeEmotion(1);
+  characters[rich].changeEmotion(1);
+  characters[poor].changeEmotion(1);
+  characters[dreamcorps].changeEmotion(0);
+  characters[government].changeEmotion(1);
   adventureManager.clickablePressed(this.name);
 }
 
 clReset = function() {
-    characters[poor].changeEmotion(1);
-    characters[rich].changeEmotion(1);
-    characters[dreamcorps].changeEmotion(1);
-    characters[government].changeEmotion(1);
-    characters[naturalist].changeEmotion(1);
-    adventureManager.clickablePressed(this.name);
+  characters[poor].changeEmotion(1);
+  characters[rich].changeEmotion(1);
+  characters[dreamcorps].changeEmotion(1);
+  characters[government].changeEmotion(1);
+  characters[naturalist].changeEmotion(1);
+  adventureManager.clickablePressed(this.name);
 }
 
 //-------------- CHARACTERS -------------//
@@ -433,11 +433,11 @@ function allocateCharacters() {
   }
 
   // default anger is zero, set up some anger values
-    characters[poor].changeEmotion(1);
-    characters[rich].changeEmotion(1);
-    characters[dreamcorps].changeEmotion(1);
-    characters[government].changeEmotion(1);
-    characters[naturalist].changeEmotion(1);
+  characters[poor].changeEmotion(1);
+  characters[rich].changeEmotion(1);
+  characters[dreamcorps].changeEmotion(1);
+  characters[government].changeEmotion(1);
+  characters[naturalist].changeEmotion(1);
     
 }
 
@@ -464,14 +464,14 @@ class Character {
       image( this.image, this.x, this.y );
 
       // draw emojis
-        image(faces[this.anger], this.x + 70, this.y +10 );
+      image(faces[this.anger], this.x + 70, this.y +10 );
 
       pop();
     }
   }
     
-    changeEmotion(x) {
-        this.anger = x;
+  changeEmotion(x) {
+    this.anger = x;
     }
 }
 
@@ -666,7 +666,7 @@ class CharactersRoom extends PNGRoom {
       text("Higher Class Oneirophile:\nRich dream lovers. They have the money to do whatever they want for their dreams.", 550 , 300, 250, 190 );
       text("Private Dream Corps:\nThese corporations can make a lot of money on this amazing tech even if there are angry people.", 62 , 600, 250, 190 );
       text("Government:\nThey love this new technology and want to find ways to *totally* make a positive change for everyone.", 387 , 600, 250, 190 );
-      text("Naturalist:\nThey want to go back to the way dreams were dreamt. Natural and often forgotten.", 712 , 600, 250, 190 );
+      text("Naturalist:\nThey want to go back to the way dreams were dreamt. Natural and often forgotten.", 712 , 600, 250, 185 );
 
       //character 1
       imageMode(CENTER);
